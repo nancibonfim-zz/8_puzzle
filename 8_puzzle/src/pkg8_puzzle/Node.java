@@ -13,7 +13,8 @@ public class Node {
     int estado[][] = new int[3][3];
     Node pai;
     Node filhos[];
-    int custo, caminho;
+    String acao;
+    int custo;
 
     public Node() {
     }
@@ -50,14 +51,15 @@ public class Node {
         this.custo = custo;
     }
 
-    public int getCaminho() {
-        return caminho;
+    public String getAcao() {
+        return acao;
     }
 
-    public void setCaminho(int caminho) {
-        this.caminho = caminho;
+    public void setAcao(String acao) {
+        this.acao = acao;
     }
-    
+
+   
     
     
     
