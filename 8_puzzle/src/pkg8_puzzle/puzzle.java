@@ -10,14 +10,15 @@ package pkg8_puzzle;
  *
  * @author Diogo
  */
+import busca.No;
 import java.awt.BorderLayout;  
 import java.awt.Dimension;  
 import java.awt.GridLayout;  
-import java.awt.Image;  
+  
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;  
-import java.awt.image.CropImageFilter;  
-import java.awt.image.FilteredImageSource;  
+
+import java.util.List;
   
 import javax.swing.Box;  
 import javax.swing.ImageIcon;  
@@ -36,6 +37,63 @@ public class puzzle extends JFrame implements ActionListener {
     int[][] pos;  
     int width, height;  
   
+    
+     public puzzle(List caminho) {  
+        
+        No aux = (No)caminho.get(1);
+        // No aux = (No)caminho.g
+        
+        
+         
+        pos = new int[][] {  
+                            {0, 1, 2},   
+                            {3, 4, 5},   
+                            {6, 7, 8}   
+                             
+                        };  
+  
+  
+        centerPanel = new JPanel();  
+        centerPanel.setLayout(new GridLayout(3, 3, 0, 0));  
+  
+        ImageIcon sid = new ImageIcon("icesid.jpg");  
+        
+  
+        width = sid.getIconWidth();  
+        height = sid.getIconHeight();  
+  
+  
+        add(Box.createRigidArea(new Dimension(0, 5)), BorderLayout.NORTH);      
+        add(centerPanel, BorderLayout.CENTER);  
+  
+  
+        for ( int i = 0; i < 3; i++) {  
+            for ( int j = 0; j < 3; j++) {  
+                if ( j == 2 && i == 2) {  
+                    label = new JLabel(" ");  
+                    centerPanel.add(label);  
+                } else {  
+                    button = new JButton();  
+                    button.addActionListener(this);  
+                    centerPanel.add(button);  
+//                    image = createImage(new FilteredImageSource(source.getSource(),  
+//                        new CropImageFilter(j*width/3, i*height/4,   
+//                            (width/3)+1, height/4)));  
+                    button.setText("teste");  
+                }  
+            }  
+        }  
+  
+        setSize(325, 275);  
+        setTitle("Puzzle");  
+        setResizable(false);  
+        setLocationRelativeTo(null);  
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+        setVisible(true);  
+    }  
+  
+  
+    
     public puzzle() {  
   
         pos = new int[][] {  

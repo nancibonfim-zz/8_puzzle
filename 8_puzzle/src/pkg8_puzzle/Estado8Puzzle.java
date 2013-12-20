@@ -16,6 +16,7 @@ import busca.BuscaAEstrela;
 import busca.Estado;
 import busca.Heuristica;
 import busca.No;
+import java.util.ArrayList;
 
 public class Estado8Puzzle implements Estado, Heuristica {
     
@@ -430,7 +431,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
     public static void main(String[] a) {
         //Estado8Puzzle e8 = getEstadoFacil();
        // Estado8Puzzle e8 = getEstadoDificil();
-        new puzzle();
+        
         Estado8Puzzle e8 = getEstadoMuitoDificil();
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
         
@@ -440,6 +441,17 @@ public class Estado8Puzzle implements Estado, Heuristica {
         }
         
         No s1 = new BuscaAEstrela().busca(e8);
+        
+        No auxCaminho = s1;
+        
+        List caminho = new ArrayList();
+        
+        while(auxCaminho != null){
+            caminho.add(auxCaminho);
+            auxCaminho = auxCaminho.getPai();
+        }
+        
+        new puzzle(caminho);
         
         if (s1 != null) {
             System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());
