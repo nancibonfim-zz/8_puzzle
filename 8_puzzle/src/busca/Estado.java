@@ -14,6 +14,7 @@ public interface Estado {
     public boolean isGoal();
     //custo para gerar estado
     public int custo();
+    public String acao();
     public List<Estado> sucessores();
 
 }

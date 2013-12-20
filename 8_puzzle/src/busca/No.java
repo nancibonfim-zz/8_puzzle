@@ -12,6 +12,7 @@ public class No implements Comparable  {
         Estado estado;  
         No   pai;    
         int    profundidade = 0;
+        
         // custo de ter gerado o nodo (todo o caminho)
         int    g = 0; 
         // f = g + h

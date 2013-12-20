@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class Estado8Puzzle implements Estado, Heuristica {
     
-   
+    String acao;
     
     public static final short tam = 3;
     
@@ -35,7 +35,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
     /*   1 2 
        3 4 5        if goal state = 2
        6 7 8 */
-    int goalState = 2;
+    //int goalState = 2;
     
     /**
      *  estado inicial (aleatorio)
@@ -104,7 +104,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
      * ver se o estado e meta
      */
     public boolean isGoal() {
-        return this.equals(estadoMeta);
+        return this.equals(estadoObjetivo);
     }
     
     
@@ -112,41 +112,34 @@ public class Estado8Puzzle implements Estado, Heuristica {
      * Heuristica: calcula a quantidade de numeros fora do lugar
      */
     public int h() {
-        return h2() + h3();
+        return h2() + h1();
     }
-    
-    /**
-     * Heuristica: calcula a quantidade de numeros fora do lugar 
-     */
     
     public int h1() {
         int fora = 0;
         
-        if (tabuleiro[0][0] != 1) fora++;
-        if (tabuleiro[0][1] != 2) fora++;
-        if (tabuleiro[0][2] != 3) fora++;
-        if (tabuleiro[1][0] != 4) fora++;
-        if (tabuleiro[1][1] != 5) fora++;
-        if (tabuleiro[1][2] != 6) fora++;
-        if (tabuleiro[2][0] != 7) fora++;
-        if (tabuleiro[2][1] != 8) fora++;
-        if (tabuleiro[2][2] != 0) fora++;
+        if (tabuleiro[0][0] != 0) fora++;
+        if (tabuleiro[0][1] != 1) fora++;
+        if (tabuleiro[0][2] != 2) fora++;
+        if (tabuleiro[1][0] != 3) fora++;
+        if (tabuleiro[1][1] != 4) fora++;
+        if (tabuleiro[1][2] != 5) fora++;
+        if (tabuleiro[2][0] != 6) fora++;
+        if (tabuleiro[2][1] != 7) fora++;
+        if (tabuleiro[2][2] != 8) fora++;
         
         return fora;
     }
     
-    
-    /**
-     * Heuristica: calcula a distancia de cada numero ate seu lugar
-     */
+       
     public int h2() {
         int fora = 0;
         
         for (int n=0; n<(tam*tam); n++) {
             int l = getLinNro(n);
             int c = getColNro(n);
-            int lMeta = estadoMeta.getLinNro(n);
-            int cMeta = estadoMeta.getColNro(n);
+            int lMeta = estadoObjetivo.getLinNro(n);
+            int cMeta = estadoObjetivo.getColNro(n);
             fora += Math.abs(l - lMeta);
             fora += Math.abs(c - cMeta);
         }
@@ -154,47 +147,6 @@ public class Estado8Puzzle implements Estado, Heuristica {
     }
     
     
-    /**
-     * Heuristica: conta os numeros fora da sequencia circular
-     */
-    public int h3() {
-        int fora = 0;
-        
-        for (int n=1; n<(tam*tam); n++) {
-            int l = getLinNro(n);
-            int c = getColNro(n);
-            int lAnt = 0;
-            if (l==0 && c==0) lAnt = 1;
-            else if (l==0 && c==1) lAnt = 0;
-            else if (l==0 && c==2) lAnt = 0;
-            else if (l==1 && c==0) lAnt = 2;
-            else if (l==1 && c==2) lAnt = 0;
-            else if (l==2 && c==0) lAnt = 2;
-            else if (l==2 && c==1) lAnt = 2;
-            else if (l==2 && c==2) lAnt = 1;
-            
-            int cAnt = 0;
-            if (l==0 && c==0) cAnt = 0;
-            else if (l==0 && c==1) cAnt = 0;
-            else if (l==0 && c==2) cAnt = 1;
-            else if (l==1 && c==0) cAnt = 0;
-            else if (l==1 && c==2) cAnt = 2;
-            else if (l==2 && c==0) cAnt = 1;
-            else if (l==2 && c==1) cAnt = 2;
-            else if (l==2 && c==2) cAnt = 2;
-            
-            int nroAnt = tabuleiro[lAnt][cAnt];
-            
-            if (n == 1) {
-                if (nroAnt != 8) {
-                    fora += 1;
-                }
-            } else if (nroAnt+1 != n) {
-                fora += 1;
-            }
-        }
-        return fora;
-    }
     
     /** retorna a coluna de um numero */
     int getColNro(int n) {
@@ -220,50 +172,60 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return -1;
     }
     
+        
+    public String acao(){
+        
+        return this.acao;
+    }
     
     /**
      * gera uma lista de sucessores do no.
      */
     public List<Estado> sucessores() {
+        
         List<Estado> suc = new LinkedList<Estado>(); // a lista de sucessores
         
-        // pra cima
+        
         if (linBranco > 0) {
             Estado8Puzzle novo = new Estado8Puzzle(tabuleiro);
             novo.tabuleiro[linBranco-1][colBranco] = 0;
             novo.tabuleiro[linBranco][colBranco] = tabuleiro[linBranco-1][colBranco];
             novo.linBranco = linBranco-1;
             novo.colBranco = colBranco;
+            novo.acao = "cima";
             suc.add(novo);
         }
         
-        // pra baixo
+       
         if (linBranco < tam-1) {
             Estado8Puzzle novo = new Estado8Puzzle(tabuleiro);
             novo.tabuleiro[linBranco+1][colBranco] = 0;
             novo.tabuleiro[linBranco][colBranco] = tabuleiro[linBranco+1][colBranco];
             novo.linBranco = linBranco+1;
             novo.colBranco = colBranco;
+            novo.acao = "baixo";
             suc.add(novo);
         }
         
-        // pra esq
+        
         if (colBranco > 0) {
             Estado8Puzzle novo = new Estado8Puzzle(tabuleiro);
             novo.tabuleiro[linBranco][colBranco-1] = 0;
             novo.tabuleiro[linBranco][colBranco] = tabuleiro[linBranco][colBranco-1];
             novo.linBranco = linBranco;
             novo.colBranco = colBranco-1;
+            novo.acao = "esquerda";
             suc.add(novo);
         }
         
-        // pra dir
+        
         if (colBranco < tam-1) {
             Estado8Puzzle novo = new Estado8Puzzle(tabuleiro);
             novo.tabuleiro[linBranco][colBranco+1] = 0;
             novo.tabuleiro[linBranco][colBranco] = tabuleiro[linBranco][colBranco+1];
             novo.linBranco = linBranco;
             novo.colBranco = colBranco+1;
+            novo.acao = "direita";
             suc.add(novo);
         }
         
@@ -274,57 +236,10 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return sucessores();
     }
     
-    public boolean temSolucao2() {
-        // se um numero par de trocas direcionar o estado atual ao estado meta, 
-        // entao tem solucao
-        Estado8Puzzle meta = estadoMeta;
-        
-        Estado8Puzzle t = new Estado8Puzzle(tabuleiro);
-        
-        // move o branco para o centro
-        int cb = t.getColNro(0);
-        int lb = t.getLinNro(0);
-        
-        // move linha
-        while ( lb < meta.getLinNro(0)) {
-            troca( t.tabuleiro, lb, cb, lb+1, cb);
-            lb++;
-        }
-        while ( lb > meta.getLinNro(0)) {
-            troca( t.tabuleiro, lb, cb, lb-1, cb);
-            lb--;
-        }
-        
-        // move coluna
-        while ( cb < meta.getColNro(0)) {
-            troca( t.tabuleiro, lb, cb, lb, cb+1);
-            cb++;
-        }
-        while ( cb > meta.getColNro(0)) {
-            troca( t.tabuleiro, lb, cb, lb, cb-1);
-            cb--;
-        }
-        
-        
-        int nroTrocas = 0;
-        for (int l = 0; l < tam; l++) {
-            for (int c = 0; c < tam; c++) {
-                // se meta for diferente de tab, troca
-                if (t.tabuleiro[l][c] != meta.tabuleiro[l][c]) {
-                    int vlOk = meta.tabuleiro[l][c];
-                    //Estado8Puzzle t = new Estado8Puzzle(tab);
-                    troca(t.tabuleiro, l, c, t.getLinNro(vlOk), t.getColNro(vlOk));
-                    nroTrocas++;
-                }
-            }
-        }
-        
-        return nroTrocas % 2 == 0;
-        
-    }
+   
     //verificacao da soluçaõ : http://www.8puzzle.com/8_puzzle_algorithm.html
     public boolean temSolucao() {
-        Estado8Puzzle meta = estadoMeta;
+        Estado8Puzzle meta = estadoObjetivo;
         Estado8Puzzle t = new Estado8Puzzle(tabuleiro);
         
         int nroTrocas = 0;
@@ -337,10 +252,8 @@ public class Estado8Puzzle implements Estado, Heuristica {
         System.out.println(nroTrocas % 2);
         
         boolean retorno = (nroTrocas % 2 == 0);
-        //se retorno é true entao nrTrocas é par, senao é impar
-        if(goalState == 1 && !retorno){
-                return true;
-        }else if (goalState == 2 && retorno){
+       
+        if (retorno){
                 return true;
         }
         return false;
@@ -362,12 +275,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return nrtrocas;
     }
     
-    private void troca(int[][] tab, int l1, int c1, int l2, int c2) {
-        int bak = tab[l2][c2];
-        tab[l2][c2] = tab[l1][c1];
-        tab[l1][c1] = bak;
-    }
-    
+   
     private String toStringCache = null;
     public String toString() {
         if (toStringCache == null) {
@@ -417,12 +325,12 @@ public class Estado8Puzzle implements Estado, Heuristica {
     
     
     
-    public static Estado8Puzzle getEstadoMeta() {
-        return estadoMeta;
+    public static Estado8Puzzle getEstadoObjetivo() {
+        return estadoObjetivo;
     }
     
-    private final static Estado8Puzzle estadoMeta = setEstadoMeta();
-    private static Estado8Puzzle setEstadoMeta() {
+    private final static Estado8Puzzle estadoObjetivo = setEstadoObjetivo();
+    private static Estado8Puzzle setEstadoObjetivo() {
         Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{0,1,2},{3,4,5},{6,7,8}});
         e8.setPosBranco();
         return e8;
