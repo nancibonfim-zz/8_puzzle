@@ -19,16 +19,7 @@ import busca.No;
 
 public class Estado8Puzzle implements Estado, Heuristica{
     
-    public String getDescricao() {
-        return
-        "Este problema consiste em posicionar 8\n" +
-        "numeros em um tabuleiro 3x3 na seguinte disposcao:\n"+
-        "1 2 3\n"+
-        "8   4\n"+
-        "7 6 5\n"+
-        "sendo que o espaco pode se mover.\n"+
-        "(bom candidato a busca bi-direcional)\n";
-    }
+   
     
     public static final short tam = 3;
     
@@ -43,7 +34,7 @@ public class Estado8Puzzle implements Estado, Heuristica{
     /*   1 2 
        3 4 5        if goal state = 2
        6 7 8 */
-    int goalState = 1;
+    int goalState = 2;
     
     /**
      *  estado inicial (aleatorio)
@@ -341,6 +332,8 @@ public class Estado8Puzzle implements Estado, Heuristica{
                 nroTrocas += verifica(l,c,t.tabuleiro);
             }
         }
+        System.out.println(nroTrocas);
+        System.out.println(nroTrocas % 2);
         
         boolean retorno = (nroTrocas % 2 == 0);
         //se retorno é true entao nrTrocas é par, senao é impar
@@ -404,19 +397,19 @@ public class Estado8Puzzle implements Estado, Heuristica{
     
     
     static public Estado8Puzzle getEstadoFacil() {
-        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{8,1,3},{0,7,2},{6,5,4}});
+        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{8,1,3},{0,7,2},{6,4,5}});
         e8.setPosBranco();
         return e8;
     }
     
     static public Estado8Puzzle getEstadoDificil() {
-        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{7,8,6},{2,3,5},{1,4,0}} );
+        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{7,8,6},{2,4,5},{1,3,0}} );
         e8.setPosBranco();
         return e8;
     }
     
     static public Estado8Puzzle getEstadoMuitoDificil() {
-        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{2,3,4},{1,0,5},{8,7,6}} );
+        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{4,3,2},{5,0,1},{8,7,6}} );
         e8.setPosBranco();
         return e8;
     }
@@ -429,15 +422,15 @@ public class Estado8Puzzle implements Estado, Heuristica{
     
     private final static Estado8Puzzle estadoMeta = setEstadoMeta();
     private static Estado8Puzzle setEstadoMeta() {
-        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{1,2,3},{8,0,4},{7,6,5}});
+        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{0,1,2},{3,4,5},{6,7,8}});
         e8.setPosBranco();
         return e8;
     }
     
     public static void main(String[] a) {
         //Estado8Puzzle e8 = getEstadoFacil();
-        Estado8Puzzle e8 = getEstadoDificil();
-        //Estado8Puzzle e8 = getEstadoMuitoDificil();
+       // Estado8Puzzle e8 = getEstadoDificil();
+        Estado8Puzzle e8 = getEstadoMuitoDificil();
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
         
         if (! e8.temSolucao()) {

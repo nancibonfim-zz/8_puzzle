@@ -6,10 +6,7 @@
 
 package busca;
 
-/**
- *
- * @author Diogo
- */
+
 
 
 public interface Heuristica {

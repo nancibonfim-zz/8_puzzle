@@ -6,10 +6,7 @@
 
 package busca;
 
-/**
- *
- * @author Diogo
- */
+
 public class No implements Comparable  {
 
         Estado estado;  

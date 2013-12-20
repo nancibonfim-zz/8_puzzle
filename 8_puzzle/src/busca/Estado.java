@@ -6,10 +6,7 @@
 
 package busca;
 
-/**
- *
- * @author Diogo
- */
+
 import java.util.List;
 
 public interface Estado {

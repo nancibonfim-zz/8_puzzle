@@ -6,10 +6,7 @@
 
 package busca;
 
-/**
- *
- * @author Diogo
- */
+
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
