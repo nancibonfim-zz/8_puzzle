@@ -17,7 +17,7 @@ import busca.Estado;
 import busca.Heuristica;
 import busca.No;
 
-public class Estado8Puzzle implements Estado, Heuristica{
+public class Estado8Puzzle implements Estado, Heuristica {
     
    
     
@@ -430,6 +430,7 @@ public class Estado8Puzzle implements Estado, Heuristica{
     public static void main(String[] a) {
         //Estado8Puzzle e8 = getEstadoFacil();
        // Estado8Puzzle e8 = getEstadoDificil();
+        new puzzle();
         Estado8Puzzle e8 = getEstadoMuitoDificil();
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
         
@@ -439,9 +440,7 @@ public class Estado8Puzzle implements Estado, Heuristica{
         }
         
         No s1 = new BuscaAEstrela().busca(e8);
-        //No s2 = new BuscaLargura().busca(e8);
-        //No s3 = new BuscaProfundidadeIterativa().busca(e8);
-        //No s4 = new BuscaProfundidade(25).busca(e8);
+        
         if (s1 != null) {
             System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());
         }        
