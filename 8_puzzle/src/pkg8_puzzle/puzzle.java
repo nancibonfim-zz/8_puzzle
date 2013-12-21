@@ -29,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;  
 import javax.swing.JFrame;  
 import javax.swing.JLabel;  
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;  
   
   
@@ -49,33 +50,23 @@ public class puzzle extends JFrame implements ActionListener {
         
         int labelIndex = 0;
         int x = 1;
+        
         No aux = (No)caminho.get(caminho.size()-x);
         // No aux = (No)caminho.g
         tabuleiro = aux.getEstado().getTabuleiro();
-        
-         
+                
         pos = new int[][] {  
                             {0, 1, 2},   
                             {3, 4, 5},   
-                            {6, 7, 8}   
-                             
-                        };  
-  
+                            {6, 7, 8}                            
+                        };    
   
         centerPanel = new JPanel();  
         centerPanel.setLayout(new GridLayout(3, 4, 0, 0));  
-  
-        ImageIcon sid = new ImageIcon("icesid.jpg");  
-        
-  
-        width = sid.getIconWidth();  
-        height = sid.getIconHeight();  
-  
-  
+   
         add(Box.createRigidArea(new Dimension(0, 5)), BorderLayout.NORTH);      
         add(centerPanel, BorderLayout.CENTER);  
-  
-        
+          
         int aux2=0;
         
         for ( int i = 0; i < 3; i++) {  
@@ -91,8 +82,7 @@ public class puzzle extends JFrame implements ActionListener {
                     centerPanel.add(button);  
                     String texto = ""+tabuleiro[i][j];
                     button.setText(texto);  
-                } 
-                
+                }                 
                 aux2++;
             }  
         }  
@@ -106,8 +96,7 @@ public class puzzle extends JFrame implements ActionListener {
         
        //  Thread.sleep(300);
         int buttonIndex = 0;
-        
-         
+                 
         x++;
         aux = (No)caminho.get(caminho.size()-x);
         
@@ -153,14 +142,8 @@ public class puzzle extends JFrame implements ActionListener {
                     buttonIndex = labelIndex+1;
                 if(aux.getEstado().acao().equals("esquerda") && aux != null)
                     buttonIndex = labelIndex-1;
-           }
-   
-           
-          
-        }    
-         
-         
-         
+           }          
+        }         
         
     }  
   

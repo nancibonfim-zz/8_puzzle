@@ -17,6 +17,9 @@ import busca.Estado;
 import busca.Heuristica;
 import busca.No;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import relatorio.relatorio;
 
 public class Estado8Puzzle implements Estado, Heuristica {
     
@@ -347,7 +350,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
         
         if (! e8.temSolucao()) {
-            System.out.println(e8+"nao tem solucao!");
+             JOptionPane.showMessageDialog(null,e8+"NÃO TEM SOLUÇÃO");
             return;
         }
         
@@ -365,7 +368,10 @@ public class Estado8Puzzle implements Estado, Heuristica {
         new puzzle(caminho);
         
         if (s1 != null) {
-            System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());
+           // System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());
+            
+          //  JOptionPane.showMessageDialog(null,"Passos ("+s1.getProfundidade()+")= "+s1.montaCaminho());
+            new relatorio(s1.getProfundidade()+" Passos", s1.montaCaminho()).setVisible(true);
         }        
     }
 }
