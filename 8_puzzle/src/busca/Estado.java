@@ -13,6 +13,7 @@ public interface Estado {
 
     public boolean isGoal();
     //custo para gerar estado
+    public int[][] getTabuleiro();
     public int custo();
     public String acao();
     public List<Estado> sucessores();

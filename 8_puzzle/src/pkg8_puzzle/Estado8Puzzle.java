@@ -275,6 +275,9 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return nrtrocas;
     }
     
+    public int[][] getTabuleiro(){
+        return this.tabuleiro;
+    }
    
     private String toStringCache = null;
     public String toString() {
@@ -336,7 +339,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return e8;
     }
     
-    public static void main(String[] a) {
+    public static void main(String[] a) throws InterruptedException {
         //Estado8Puzzle e8 = getEstadoFacil();
        // Estado8Puzzle e8 = getEstadoDificil();
         
