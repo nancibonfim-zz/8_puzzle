@@ -344,9 +344,9 @@ public class Estado8Puzzle implements Estado, Heuristica {
     
     public static void main(String[] a) throws InterruptedException {
         //Estado8Puzzle e8 = getEstadoFacil();
-       // Estado8Puzzle e8 = getEstadoDificil();
+        Estado8Puzzle e8 = getEstadoDificil();
         
-        Estado8Puzzle e8 = getEstadoMuitoDificil();
+       // Estado8Puzzle e8 = getEstadoMuitoDificil();
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
         
         if (! e8.temSolucao()) {
