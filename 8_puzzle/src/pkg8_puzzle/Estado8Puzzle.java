@@ -17,11 +17,21 @@ import busca.Estado;
 import busca.Heuristica;
 import busca.No;
 import jade.core.Agent;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import relatorio.relatorio;
 
 public class Estado8Puzzle extends Agent implements Estado, Heuristica {
@@ -231,7 +241,7 @@ public class Estado8Puzzle extends Agent implements Estado, Heuristica {
     }
     
    
-    //verificacao da soluçaõ : http://www.8puzzle.com/8_puzzle_algorithm.html
+    //http://www.8puzzle.com/8_puzzle_algorithm.html
     public boolean temSolucao() {
         Estado8Puzzle meta = estadoObjetivo;
         Estado8Puzzle t = new Estado8Puzzle(tabuleiro);
@@ -320,6 +330,109 @@ public class Estado8Puzzle extends Agent implements Estado, Heuristica {
         return e8;
     }
     
+     static public Estado8Puzzle getEstadoUser() {
+//        JPanel centerPanel;  
+//        JButton button;  
+//        JLabel label; 
+//        JTextField text;
+//        JDialog tab = new JDialog();
+//        
+//        int[][] pos;
+//        int[][] tabuleiro1;
+//        
+//        int labelIndex = 0;
+//        int x = 1;
+//                
+//        // No aux = (No)caminho.g
+//        
+//                
+//        pos = new int[][] {  
+//                            {0, 1, 2},   
+//                            {3, 4, 5},   
+//                            {6, 7, 8},
+//                            {9}
+//                        };    
+//  
+//        centerPanel = new JPanel();  
+//        centerPanel.setLayout(new GridLayout(3, 4, 0, 0));  
+//   
+//        tab.add(Box.createRigidArea(new Dimension(0, 5)), BorderLayout.NORTH);      
+//        tab.add(centerPanel, BorderLayout.CENTER);  
+//               
+//        for ( int i = 0; i < 3; i++) {  
+//            for ( int j = 0; j < 3; j++) {                                
+//                    text = new JTextField(" ");  
+//                    centerPanel.add(text);                    
+//                }   
+//               
+//            }  
+//          
+//   
+//        tab.setSize(325, 275);  
+//        tab.setTitle("Puzzle");  
+//        tab.setResizable(false);  
+//        tab.setLocationRelativeTo(null);  
+//        tab.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+//        tab.setVisible(true);  
+         
+        //JPasswordField password = new JPasswordField(10);  
+        JTextField text0 = new JTextField(1);
+        JTextField text1 = new JTextField(1);
+        JTextField text2 = new JTextField(1);
+        JTextField text3 = new JTextField(1);
+        JTextField text4 = new JTextField(1);
+        JTextField text5 = new JTextField(1);
+        JTextField text6 = new JTextField(1);
+        JTextField text7 = new JTextField(1);
+        JTextField text8 = new JTextField(1);
+       
+        //password.setEchoChar('*');   
+      
+        // Cria um rótulo para o campo  
+        JLabel rotulo = new JLabel("Digite os valores de 0 a 8");  
+                  
+        // Coloca o rótulo e a caixa de entrada numa JPanel:  
+        JPanel entUsuario = new JPanel();  
+        entUsuario.add(rotulo);  
+        entUsuario.add(text0);  
+        entUsuario.add(text1);  
+        entUsuario.add(text2);  
+        entUsuario.add(text3);  
+        entUsuario.add(text4);  
+        entUsuario.add(text5);  
+        entUsuario.add(text6);  
+        entUsuario.add(text7);  
+        entUsuario.add(text8);  
+      
+        // Mostra o rótulo e a caixa de entrada de password para o usuario fornecer a senha:  
+        JOptionPane.showMessageDialog(null, entUsuario, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);  
+        
+        
+        /*
+         1 2 5
+         6 0 7
+         8 3 4
+         */
+        
+        int camp0 = Integer.parseInt(text0.getText());   
+        int camp1 = Integer.parseInt(text1.getText());  
+        int camp2 = Integer.parseInt(text2.getText());  
+        int camp3 = Integer.parseInt(text3.getText());  
+        int camp4 = Integer.parseInt(text4.getText());  
+        int camp5 = Integer.parseInt(text5.getText());  
+        int camp6 = Integer.parseInt(text6.getText());  
+        int camp7 = Integer.parseInt(text7.getText());  
+        int camp8 = Integer.parseInt(text8.getText());  
+        
+        // mostra a senha no terminal:  
+        
+        
+         //JOptionPane.showInternalConfirmDialog(null, tam);
+        Estado8Puzzle e8 = new Estado8Puzzle(new int[][] {{camp0,camp1,camp2},{camp3,camp4,camp5},{camp6,camp7,camp8}} );
+        e8.setPosBranco();
+        return e8;
+    }
+    
     
     
     public static Estado8Puzzle getEstadoObjetivo() {
@@ -335,7 +448,7 @@ public class Estado8Puzzle extends Agent implements Estado, Heuristica {
     
     protected void setup() {
         //Estado8Puzzle e8 = getEstadoFacil();
-        Estado8Puzzle e8 = getEstadoDificil();
+        Estado8Puzzle e8 = getEstadoUser();
         
        // Estado8Puzzle e8 = getEstadoMuitoDificil();
         System.out.println("estado inicial (h="+((Heuristica)e8).h()+") ="+e8);
