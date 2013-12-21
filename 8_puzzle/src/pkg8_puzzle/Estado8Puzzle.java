@@ -16,12 +16,15 @@ import busca.BuscaAEstrela;
 import busca.Estado;
 import busca.Heuristica;
 import busca.No;
+import jade.core.Agent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import relatorio.relatorio;
 
-public class Estado8Puzzle implements Estado, Heuristica {
+public class Estado8Puzzle extends Agent implements Estado, Heuristica {
     
     String acao;
     
@@ -30,19 +33,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
     int[][] tabuleiro = new int[tam][tam];
     int colBranco = -1;
     int linBranco = -1;
-    
-    /* 1 2 3
-       8   4        if goal state = 1
-       7 6 5 */
-    
-    /*   1 2 
-       3 4 5        if goal state = 2
-       6 7 8 */
-    //int goalState = 2;
-    
-    /**
-     *  estado inicial (aleatorio)
-     */
+   
     public Estado8Puzzle() {
         for (int r=0;r< (tam*tam);r++) {
             // tenta ata achar uma posicao livre
@@ -342,7 +333,7 @@ public class Estado8Puzzle implements Estado, Heuristica {
         return e8;
     }
     
-    public static void main(String[] a) throws InterruptedException {
+    protected void setup() {
         //Estado8Puzzle e8 = getEstadoFacil();
         Estado8Puzzle e8 = getEstadoDificil();
         
@@ -364,8 +355,11 @@ public class Estado8Puzzle implements Estado, Heuristica {
             caminho.add(auxCaminho);
             auxCaminho = auxCaminho.getPai();
         }
-        
-        new puzzle(caminho);
+        try {
+            new puzzle(caminho);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Estado8Puzzle.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (s1 != null) {
            // System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());

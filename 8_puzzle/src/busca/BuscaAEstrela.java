@@ -18,8 +18,11 @@ public class BuscaAEstrela extends Busca {
         int maxF = -1; // max F
     int maxAbertos = -1; // max abertos
         No theBest;
+        Estado inicial;
+        No melhor;
 
     public BuscaAEstrela() {
+        
     }
     
         /** seta o limite para f(), -1 eh ilimitado */
@@ -36,38 +39,12 @@ public class BuscaAEstrela extends Busca {
                 return theBest;
         }
         
-    /**
-     *
-     * Busca a solucao por busca em heuristica.
-     * (baseado no Russel & Norvig)
-     */
+  
     public No busca(Estado inicial) {
-        initFechados();
-        Queue<No> abertos = new PriorityQueue<No>(100, getNoComparatorF()); // lista ordenada por f()
-        No nInicial = new No(inicial, null);
-        abertos.add(nInicial);
-        theBest = nInicial; // o melhor nodo ja gerado
-        
-        while (abertos.size() > 0) {
-            No melhor = abertos.remove();
-            if (melhor.estado.isGoal()) {
-                return melhor;
-            }
-            if (maxF < 0 || melhor.f() < maxF) {
-                abertos.addAll( sucessores(melhor) );
-            }
-            if (maxAbertos > 0 && abertos.size() > maxAbertos) {
-                break;
-            }
-            
-            // o "the best" e o codigo que segue so para fins de interface
-            if (melhor.f() < theBest.f()) {
-                theBest = melhor;
-                //print("\nMelhor (em profundidade "+melhor.getProfundidade()+", h="+((Heuristica)theBest.estado).h()+")="+melhor);
-            }
-            
-        }
-        return null;
+        this.inicial = inicial;
+        this.action();
+       
+        return melhor;
     }
     
     /** comparador para ordenar os nodos por F */
@@ -96,6 +73,40 @@ public class BuscaAEstrela extends Busca {
     
     public String toString() {
         return "A* - busca heur�stica"; 
+    }
+
+    @Override
+    public void action() {
+         initFechados();
+        Queue<No> abertos = new PriorityQueue<No>(100, getNoComparatorF()); // lista ordenada por f()
+        No nInicial = new No(inicial, null);
+        abertos.add(nInicial);
+        theBest = nInicial; // o melhor nodo ja gerado
+        
+        while (abertos.size() > 0) {
+            No melhoraux = abertos.remove();
+            if (melhoraux.estado.isGoal()) {
+                this.melhor = melhoraux;
+            }
+            if (maxF < 0 || melhoraux.f() < maxF) {
+                abertos.addAll( sucessores(melhoraux) );
+            }
+            if (maxAbertos > 0 && abertos.size() > maxAbertos) {
+                break;
+            }
+            
+            // o "the best" e o codigo que segue so para fins de interface
+            if (melhoraux.f() < theBest.f()) {
+                theBest = melhoraux;
+                //print("\nMelhor (em profundidade "+melhor.getProfundidade()+", h="+((Heuristica)theBest.estado).h()+")="+melhor);
+            }
+            
+        }
+    }
+
+    @Override
+    public boolean done() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

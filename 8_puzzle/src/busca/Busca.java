@@ -11,13 +11,14 @@
  * @author Diogo
  */
 package busca;
+import jade.core.behaviours.Behaviour;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 
-public abstract class Busca {
+public abstract class Busca extends Behaviour{
         
     protected boolean podar = true;
     private Map<Estado,Integer> fechados = null; // mapeia o estado para o seu custo g
