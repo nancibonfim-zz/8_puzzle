@@ -8,9 +8,16 @@ package busca;
 
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import pkg8_puzzle.Estado8Puzzle;
+import pkg8_puzzle.puzzle;
+import relatorio.relatorio;
 
 
 public class BuscaAEstrela extends Busca {
@@ -20,10 +27,40 @@ public class BuscaAEstrela extends Busca {
         No theBest;
         Estado inicial;
         No melhor;
+        No s1;
 
     public BuscaAEstrela() {
         
     }
+    // tentativa de usar o addBehaviour
+     public BuscaAEstrela(Estado e) {
+        s1 = this.busca(e);
+        this.resultado();
+    }
+     
+     public void resultado(){
+        No auxCaminho = s1;
+        
+        List caminho = new ArrayList();
+        
+        while(auxCaminho != null){
+            caminho.add(auxCaminho);
+            auxCaminho = auxCaminho.getPai();
+        }
+        try {
+            new puzzle(caminho);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Estado8Puzzle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (s1 != null) {
+           // System.out.println("solucao ("+s1.getProfundidade()+")= "+s1.montaCaminho());
+            
+          //  JOptionPane.showMessageDialog(null,"Passos ("+s1.getProfundidade()+")= "+s1.montaCaminho());
+            new relatorio(s1.getProfundidade()+" Passos", s1.montaCaminho()).setVisible(true);
+        }
+       
+     }
     
         /** seta o limite para f(), -1 eh ilimitado */
         public void setMaxF(int m) {

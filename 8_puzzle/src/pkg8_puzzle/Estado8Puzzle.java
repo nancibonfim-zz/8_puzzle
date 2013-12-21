@@ -346,6 +346,8 @@ public class Estado8Puzzle extends Agent implements Estado, Heuristica {
         }
         
         No s1 = new BuscaAEstrela().busca(e8);
+        // tentativa de usar add
+//        this.addBehaviour(new BuscaAEstrela(e8));
         
         No auxCaminho = s1;
         
